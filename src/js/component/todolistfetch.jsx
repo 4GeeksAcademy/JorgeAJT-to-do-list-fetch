@@ -42,17 +42,6 @@ const ToDoListFetch = () => {
         }
     }
 
-    // function deleteTaskAPI(indexToDelete) {
-    //     fetch("https://playground.4geeks.com/todo/users/JorgeAJT")
-    //     .then ( (response)=> response.json())
-    //     .then ( (data)=> data.todos.forEach(element => {
-    //         if(element.label === tasks[indexToDelete]) {
-    //         fetch(`https://playground.4geeks.com/todo/todos/${element.id}`, { method: 'DELETE' })
-    //         .then(()=>getTasks())
-    //         }
-    //     }))
-    // }
-
     function deleteTaskAPI(indexToDelete) {
         fetch(`https://playground.4geeks.com/todo/todos/${tasks[indexToDelete].id}`, { method: 'DELETE' })
         .then (() => getTasks())

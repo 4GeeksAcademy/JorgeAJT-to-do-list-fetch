@@ -8,6 +8,7 @@ import "../styles/index.css";
 //import your own components
 import Home from "./component/home.jsx";
 import ToDoListFetch from "./component/todolistfetch.jsx";
+import Users from "./component/users.jsx";
 
 //render your react application
-ReactDOM.render(<ToDoListFetch />, document.querySelector("#app"));
+ReactDOM.render(<Users />, document.querySelector("#app"));
