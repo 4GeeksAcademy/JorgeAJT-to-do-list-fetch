@@ -42,18 +42,18 @@ const Users = () => {
     <div className="text-center d-flex justify-content-between p-4">
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle"
+          className="btn dropdown-toggle fs-4 users"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           {selectedUser === "" ? "Users" : selectedUser}
         </button>
-        <ul className="dropdown-menu">
+        <ul className="dropdown-menu ">
           {users.map((user, index) => (
             <li key={index}>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-white fw-semibold"
                 href="#"
                 onClick={() => handleUserSelect(user.name)}
               >
@@ -64,7 +64,7 @@ const Users = () => {
         </ul>
       </div>
       <div className="input-group mb-3">
-        <span className="input-group-text" id="input-user">
+        <span className="input-group-text users fs-4" id="input-user">
           New user
         </span>
         <input
@@ -73,13 +73,13 @@ const Users = () => {
           onKeyDown={addUser}
           value={newUser}
           aria-describedby="input-user"
-          className="form-control"
+          className="form-control users fs-4"
           maxLength="50"
           placeholder="Add here a new user (MAX 50 chars)"
         />
       </div>
     </div>
-    {selectedUser === "" ? <h1 className="text-center mt-5">Select an user</h1> :
+    {selectedUser === "" ? <h1 className="text-center mt-5 ">Select an user</h1> :
     <ToDoListFetch currentUser={selectedUser}/>
     }
     </>

@@ -42,15 +42,44 @@ const ToDoListFetch = ( {currentUser} ) => {
         .then (() => getTasks())
     }
 
+    function todoListItem(tasks) {
+        let message;
+        if (tasks.length === 0) {
+            message = "No items added yet";
+        } else if (tasks.length === 1) {
+            message = "1 item left";
+        } else {
+            message = `${tasks.length} items left`;
+        }
+        return message
+    }
+
 	return (
 		<div className="text-center">
-			<h1 className="text-center mt-5">Hello There!</h1>
-            <input type="text" onChange={(e)=>setNewTask(e.target.value)} onKeyDown={addTask} value={newTask} className="" maxLength="34" placeholder="Add your next task (MAX 34 chars)"/> 
-            {tasks.map((task, index) => 
-            <p key={index}>{task.label}
-            <i onClick={()=>deleteTask(index)} className="fa-solid fa-xmark btn fs-2"></i>
-            </p>
-            )}
+			<h1 className="text-center mt-5">TO DO LIST WITH FETCH</h1>
+            <div className="input-container">
+                <div className="input-content">
+                    <div className="input-dist">
+                        <div className="input-type">
+                            {tasks.length === 0 ? 
+                            <input type="text" onChange={(e)=>setNewTask(e.target.value)} onKeyDown={addTask} value={newTask} className="input-is input-no-tasks" maxLength="34" placeholder="No tasks, add your task (MAX 34 chars)"/>
+                            : <input type="text" onChange={(e)=>setNewTask(e.target.value)} onKeyDown={addTask} value={newTask} className="input-is" maxLength="34" placeholder="Add your next task (MAX 34 chars)"/> 
+                            }
+                        </div>
+                        <ul className="input-type ul-main">
+                            {tasks.map((task, index) => 
+                            <li key={index} className="input-is d-flex justify-content-between align-items-center">
+                                {task.label}
+                                <i onClick={()=>deleteTask(index)} className="fa-solid fa-xmark btn fs-2"></i>
+                            </li>
+                            )}
+                            <li className="input-is text-start p-0 items">
+                                {todoListItem(tasks)}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 		</div>
 	);
 };
