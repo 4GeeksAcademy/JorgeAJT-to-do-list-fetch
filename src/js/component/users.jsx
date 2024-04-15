@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ToDoListFetch from "./todolistfetch";
+import Modal from "./modal";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [newUser, setNewUser] = useState("");
+  const [modalSuccess, setModalSuccess] = useState(false)
+  const [modalFail, setModalFail] = useState(false)
 
   function getUsers() {
     fetch("https://playground.4geeks.com/todo/users?offset=0&limit=100")
@@ -17,7 +20,10 @@ const Users = () => {
   }, []);
 
   function addUser(e) {
-    if (e.key === "Enter" && newUser.trim() !== "") {
+    if (e.key === "Enter" && newUser.trim() === "") {
+      setModalFail(true)
+    }
+    else if (e.key === "Enter" && newUser.trim() !== "") {
       const trimmedUser = newUser.trim();
       const requestOptions = {
         method: "POST",
@@ -28,7 +34,11 @@ const Users = () => {
         requestOptions
       )
         .then((response) => response.json())
-        .then(() => getUsers());
+        .then(() => {
+        getUsers();
+        setModalSuccess(true)
+        })
+        
       setNewUser("");
     }
   }
@@ -82,6 +92,20 @@ const Users = () => {
     {selectedUser === "" ? <h1 className="text-center mt-5 ">Select an user</h1> :
     <ToDoListFetch currentUser={selectedUser}/>
     }
+    {modalSuccess && (
+      <Modal 
+      onClose={() => setModalSuccess(false)}
+      message={"User created successfully!"}
+      faceIcon={"fa-regular fa-face-smile-beam ms-2 mt-2 fs-5"}
+      />
+    )}
+    {modalFail && (
+      <Modal 
+      onClose={() => setModalFail(false)}
+      message={"You cannot create an empty user, please enter at least one character to create a user"}
+      faceIcon={"fa-regular fa-face-frown ms-2 mt-2 fs-5"}
+      />
+    )}
     </>
   );
 };
